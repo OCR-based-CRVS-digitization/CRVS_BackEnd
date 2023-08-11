@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model admin {
+  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  eiin     BigInt @unique
+  password String
+}
+
+model users {
+  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  eiin     BigInt
+  username String @unique
+  password String
+}
+
+model workspace {
+  workspace_id String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String  @default("My Workspace")
+  username     String
+  class        Int?
+  section      String?
+  group        String?
+  roll_start   Int?
+  roll_end     Int?
+  total        Int?
+  year         Int?
+  default      Boolean @default(false)
+  description  String?
+}
