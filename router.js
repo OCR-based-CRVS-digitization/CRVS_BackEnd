@@ -6,7 +6,7 @@ const router = express.Router();
 
 const auth = require('./Route/authRoute');
 const admin = require('./Route/adminRoute');
-const workspace = require('./Route/workSpaceRoute');
+const workspace = require('./Route/workspaceRoute');
 
 router.get('/', (req, res) => {
     res.send('Hello world!\n');
