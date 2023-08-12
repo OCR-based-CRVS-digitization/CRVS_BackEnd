@@ -2,6 +2,8 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function fileUploadDb(id,URL) {
+    console.log(id)
+    console.log(URL)
     try {
         await prisma.pdf.create({
             data: {
