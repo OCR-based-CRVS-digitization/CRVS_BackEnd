@@ -13,7 +13,7 @@ async function fileUpload(req,res) {
         
 
         if(pdf){
-            
+            //console.log(pdf);
             res.status(200).json({ message: 'File Uploaded!' });
         }else{
             res.status(401).json({ error: 'File Upload Failed!' });
