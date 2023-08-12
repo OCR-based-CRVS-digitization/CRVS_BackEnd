@@ -60,6 +60,12 @@ async function firebaseUpload(req,res){
 
         // get the file name and extension
         console.log('getting file name and extension...');
+        if(!req.file){
+            return {
+                code: 400,
+                message: 'No file received',
+            };
+        }
         var filename_parts = req.file.originalname.split(".")
 
         // get the length of that array
