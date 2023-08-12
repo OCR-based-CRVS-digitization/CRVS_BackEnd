@@ -1,6 +1,6 @@
 class workspaceModel{
-    constructor({id,username,name,level,section,group,roll_start,roll_end,total,year,main,description}){
-        this.id = id;
+    constructor({workspace_id,username,name,level,section,group,roll_start,roll_end,total,year,main,description}){
+        this.workspace_id = workspace_id;
         this.username = username;
         this.name = name;
         this.level = level;

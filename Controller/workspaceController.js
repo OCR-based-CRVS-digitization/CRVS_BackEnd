@@ -45,7 +45,7 @@ async function getAllWorkspace(req,res) {
                 workspace_id: workspace.workspace_id,
                 username: workspace.username,
                 name: workspace.name,
-                class: workspace.class,
+                level: workspace.class,
                 section: workspace.section,
                 group: workspace.group,
                 roll_start: workspace.roll_start,

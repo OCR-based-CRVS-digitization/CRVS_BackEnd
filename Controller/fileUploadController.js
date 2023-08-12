@@ -10,7 +10,10 @@ async function fileUpload(req,res) {
 
         const pdf = await fileUploadDb(workspace_id,result.downloadURL);
 
+        
+
         if(pdf){
+            
             res.status(200).json({ message: 'File Uploaded!' });
         }else{
             res.status(401).json({ error: 'File Upload Failed!' });
