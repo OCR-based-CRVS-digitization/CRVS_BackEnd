@@ -67,21 +67,26 @@ async function firebaseUpload(req,res){
             };
         }
         var filename_parts = req.file.originalname.split(".")
+        console.log("filename parts :",filename_parts);
 
         // get the length of that array
         var extension_length = filename_parts.length
+        console.log("extension length :",extension_length);
 
         // get the extension by selecting the last element in the array
         var extension = filename_parts[extension_length - 1]
+        console.log("extension :",extension);
 
         // create the file name part by concatenating the file name from the array
         var file_name = ""
         for (var i = 0; i < extension_length - 1; i++) {
             file_name += filename_parts[i]
         }
+        console.log("file name :",file_name);
 
         // create the file name with the file_name , date and extension
         var file_name_with_date = file_name + "_" + dateTime + "." + extension 
+        console.log("file name with date :",file_name_with_date);
 
         // // check on variable is_template
         // const folder_ref = is_template ? 'templates' : 'forms';
