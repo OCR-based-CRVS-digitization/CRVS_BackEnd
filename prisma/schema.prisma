@@ -41,6 +41,7 @@ model pdf {
   url          String
 }
 
+
 model division {
   id   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name String
