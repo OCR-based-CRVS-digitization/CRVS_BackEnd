@@ -8,6 +8,7 @@ async function fileUpload(req,res) {
 
         const { fileUploadDb } = require('../DB/fileUploadDb');
 
+        console.log(result.downloadURL)
         const pdf = await fileUploadDb(workspace_id,result.downloadURL);
 
         
