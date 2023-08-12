@@ -53,7 +53,7 @@ function getCurrentTimeFormatted() {
 }
 
 async function firebaseUpload(req,res){
-    //console.log("file received ",req.files.originalname);
+    console.log("file received ",req.file.originalname);
     try {
         console.log('getting current time...');
         const dateTime = getCurrentTimeFormatted();
