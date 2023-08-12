@@ -34,3 +34,22 @@ model workspace {
   default      Boolean @default(false)
   description  String?
 }
+
+model pdf {
+  form_id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  workspace_id String
+  url          String
+}
+
+model division {
+  id   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name String
+  districts district[]
+}
+
+model district {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String
+  division_id  String   @db.Uuid
+  division     division @relation(fields: [division_id], references: [id])
+}

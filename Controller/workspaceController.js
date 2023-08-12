@@ -42,10 +42,10 @@ async function getAllWorkspace(req,res) {
         if(workspaces){
             
             const workspaceList = workspaces.map((workspace) => new workspaceModel({
-                id: workspace.id,
+                workspace_id: workspace.workspace_id,
                 username: workspace.username,
                 name: workspace.name,
-                level: workspace.class,
+                class: workspace.class,
                 section: workspace.section,
                 group: workspace.group,
                 roll_start: workspace.roll_start,

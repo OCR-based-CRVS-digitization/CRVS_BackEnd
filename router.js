@@ -7,6 +7,7 @@ const router = express.Router();
 const auth = require('./Route/authRoute');
 const admin = require('./Route/adminRoute');
 const workspace = require('./Route/workspaceRoute');
+const fileUpload = require('./Route/fileUploadRoute');
 
 router.get('/', (req, res) => {
     res.send('Hello world!\n');
@@ -15,5 +16,6 @@ router.get('/', (req, res) => {
 router.use('/auth', auth);
 router.use('/admin', admin);
 router.use('/workspace', workspace);
+router.use('/fileUpload', fileUpload);
 
 module.exports = router;
