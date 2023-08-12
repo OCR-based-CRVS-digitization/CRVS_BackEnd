@@ -1,4 +1,4 @@
 node_modules/
 pakage-lock.json/
-.env/
+.env
 prisma/migrations/

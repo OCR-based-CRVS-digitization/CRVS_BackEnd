@@ -2,7 +2,8 @@
   "scripts": {
     "start": "node ./index",
     "dev": "nodemon ./index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "npx prisma generate && node ./index"
   },
   "dependencies": {
     "@prisma/client": "^5.1.1",
