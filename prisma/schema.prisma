@@ -36,21 +36,26 @@ model workspace {
 }
 
 model pdf {
-  form_id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  form_id      String @id @default(dbgenerated("gen_random_uuid()"))
   workspace_id String
   url          String
 }
 
-
 model division {
-  id   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name String
+  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
   districts district[]
 }
 
 model district {
-  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name         String
-  division_id  String   @db.Uuid
-  division     division @relation(fields: [division_id], references: [id])
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String
+  division_id String   @db.Uuid
+  division    division @relation(fields: [division_id], references: [id])
+}
+
+model form_ocr_output {
+  id         BigInt @id @default(autoincrement())
+  ocr_result Json
+  form_id    String @unique
 }

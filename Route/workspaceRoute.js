@@ -10,4 +10,11 @@ const { getAllWorkspace } = require('../Controller/workspaceController');
 router.get('/getAllWorkspace', reqAthenticate, getAllWorkspace);
 
 
+const { toValidateList } = require('../Controller/validateController');
+router.post('/getValidateList', reqAthenticate, toValidateList);
+
+const { toValidateForm } = require('../Controller/validateController');
+router.post('/getValidateForm', reqAthenticate, toValidateForm);
+
+
 module.exports = router;
