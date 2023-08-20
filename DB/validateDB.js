@@ -45,18 +45,32 @@ async function getToValidateList(workspaceid) {
     }
 }
 
-async function getToValidateForm(formid) {
-    //let id = parseBigInt(formid);
+async function getToValidateForm(id) {
+    // let id = parseBigInt(formid);
     try{
         const validate = await prisma.form_ocr_output.findUnique({
             where: {
-                id: formid
+                id: id
             }
         });
-        if(validate){
-            //change validate.id to toString()
-            return validate.ocr_result;
+        //console.log(validate);
+        const formid = validate.form_id;
+        const form_url = await prisma.pdf.findUnique({
+            where: {
+                form_id: formid
+            }
+        });
+        //console.log(form_url);
+        if(validate && form_url){
+            return {
+                url:form_url.url,
+                ocr_result:validate.ocr_result,
+            };
         }
+        // if(!form_url){
+        //     console.log(`Error getting url for ID: ${formid} ${err}`);
+        // }
+        return false;
     }
     catch(err){
         console.log(`Error getting validate for ID: ${id} ${err}`);
