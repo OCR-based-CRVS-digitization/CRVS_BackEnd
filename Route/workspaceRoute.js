@@ -6,6 +6,12 @@ const { reqAthenticate } = require('../authentication');
 const { createWorkspace } = require('../Controller/workspaceController');
 router.post('/createWorkspace', reqAthenticate, createWorkspace);
 
+const { getWorkspace } = require('../Controller/workspaceController');
+router.post('/getWorkspace', reqAthenticate, getWorkspace);
+
+const { updateWorkspace } = require('../Controller/workspaceController');
+router.post('/updateWorkspace', reqAthenticate, updateWorkspace);
+
 const { getAllWorkspace } = require('../Controller/workspaceController');
 router.get('/getAllWorkspace', reqAthenticate, getAllWorkspace);
 

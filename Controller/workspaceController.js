@@ -69,10 +69,64 @@ async function getAllWorkspace(req,res) {
     }
 }
 
+async function getWorkspace(req,res) {
+    user = res.locals.username;
+    workspaceid = req.body.workspace_id;
+    try{
+        const { getWorkspaceDB } = require('../DB/workspaceDB');
+        const workspace = await getWorkspaceDB(workspaceid);
+        if(workspace){
+            res.status(200).json({ workspace });
+        }else{
+            res.status(401).json({ error: 'Workspace Fetch Failed!' });
+        }
+
+    }
+    catch(err){
+        console.log(`Error getting workspace: ${err}`);
+        res.status(500).json({ error: 'Internal error, please try again.' });
+    }
+}
+
+    async function updateWorkspace(req,res) {
+        user = res.locals.username;
+        workspaceid = req.body.workspace_id;
+        const Workspace = new workspaceModel({
+            username: user,
+            name: req.body.name,
+            level: req.body.level,
+            section: req.body.sec,
+            group: req.body.group,
+            roll_start: req.body.start,
+            roll_end: req.body.end,
+            total: req.body.total,
+            year: req.body.year,
+            main: req.body.main,
+            description: req.body.description
+        });
+
+        try{
+            const { updateWorkspaceDB } = require('../DB/workspaceDB');
+            const isUpdated = await updateWorkspaceDB(workspaceid,Workspace);
+            if(isUpdated){
+                res.status(200).json({ message: 'Workspace Updated!' });
+            }else{
+                res.status(401).json({ error: 'Workspace Update Failed!' });
+            }
+        }
+        catch(err){
+            console.log(`Error updating workspace: ${err}`);
+            res.status(500).json({ error: 'Internal error, please try again.' });
+        }
+    }
+
+
 
     
 
 module.exports = {
     createWorkspace,
-    getAllWorkspace
+    getAllWorkspace,
+    getWorkspace,
+    updateWorkspace
 }

@@ -3,7 +3,11 @@
 
 async function toValidateList(req,res) {
     workspaceid = req.body.workspace_id;
-    //console.log(workspaceid);
+    console.log(req.body);
+    console.log(workspaceid);
+    // if(!workspaceid){
+    //     res.status(401).json({ error: 'Give valid workspace ID!' });
+    // }
     try{
         const { getToValidateList } = require('../DB/validateDB');
         const validateList = await getToValidateList(workspaceid);
