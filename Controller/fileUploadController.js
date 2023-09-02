@@ -1,6 +1,4 @@
 const { firebaseUpload } = require('../Firebase/firebaseUpload');
-//const request = require('request');
-const request = require('request-promise-native');
 
 
 async function fileUpload(req,res) {
@@ -34,36 +32,23 @@ async function notifyOCR(pdfInfo){
     console.log(form_id);
 
     //call an external api, where body = {url:url,form_id:form_id}
-    const api_url = process.env.OCR_API_URL;
+    // const api_url = process.env.OCR_API_URL;
+    const api_url = 'http://localhost:5074';
 
-    const options = {
-        method : 'POST',
-        uri: api_url,
-        headers : {
-            'Content-Type': 'application/json'
-        },
-        body : JSON.stringify({
-            url:url,
-            form_id:form_id
-        }),
-    };
+    const axios = require('axios');
 
-    try {
-        const response = await request(options);
-        const parsedResponse = JSON.parse(response);
-
-        if (parsedResponse.status === 200) {
-            console.log('OCR API called successfully');
-            console.log(parsedResponse.message);
-            return true;
-        } else {
-            console.log(parsedResponse.message);
-            return false;
-        }
-    } catch (error) {
-        console.error('Error calling OCR API:', error.message);
-        return false;
+    axios.post(api_url,{
+        url:url,
+        form_id:form_id
+    })
+    .then((res) => {
+        console.log('OCR API called successfully ');
+    })
+    .catch((error) => {
+        console.error('Error calling OCR API: ',error.cause.code)
     }
+    )
+
 
 }
 

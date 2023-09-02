@@ -25,7 +25,7 @@ async function getToValidateList(workspaceid) {
                 if(validate){
                     validateList.push({
                         id: validate.id.toString(),
-                        name: validate.ocr_result.STUDENT_NAME,
+                        name: validate.ocr_result.STUDENT_NAME.text,
                     });
                 }
                 

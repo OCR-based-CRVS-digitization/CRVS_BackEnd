@@ -3,11 +3,11 @@ const express = require('express');
 const app = express();
 const baseRoute = require("./router");
 var cors = require('cors');
-const fileUpload = require('express-fileupload');
+const morgan = require('morgan');
 
 
 app.use(express.json()); // Parse JSON request bodies
-// app.use(fileUpload()); // File upload middleware
+app.use(morgan('combined')); // Log HTTP requests
 
 app.use(cors({
     origin: '*', // Be sure to switch to your production domain

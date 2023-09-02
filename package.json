@@ -1,4 +1,5 @@
 {
+  "main": "index.js",
   "scripts": {
     "start": "node ./index",
     "dev": "nodemon ./index",
@@ -7,17 +8,16 @@
   },
   "dependencies": {
     "@prisma/client": "^5.1.1",
+    "axios": "^1.5.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "latest",
-    "express-fileupload": "^1.4.0",
     "firebase": "^10.1.0",
     "jsonwebtoken": "latest",
+    "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "pg": "latest",
-    "prompt": "latest",
-    "request": "^2.88.2",
-    "request-promise-native": "^1.0.9"
+    "prompt": "latest"
   },
   "devDependencies": {
     "nodemon": "^3.0.1",
