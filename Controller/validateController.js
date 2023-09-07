@@ -41,7 +41,30 @@ async function toValidateForm(req,res) {
     }
 }
 
+async function updateForm(req,res) {
+    formid = req.body.form_id;
+    // console.log(formid);
+    const validateForm = req.body.ocr_result;
+    // console.log(validateForm);
+    console.log(req.body)
+    try{
+        const { updateFormDB } = require('../DB/validateDB');
+        const form = await updateFormDB(formid,validateForm);
+        if(form){
+            res.status(200).json("Form Updated Successfully!");
+        }else{
+            res.status(401).json({ error: 'Error Updating Form in Database -- from controller!' });
+        }
+    }
+    catch(err){
+        console.log(`Updating Form Failed: ${err}`);
+        res.status(500).json({ error: 'Internal error, please try again.' });
+    }
+}
+
+
 module.exports = {
     toValidateList,
-    toValidateForm
+    toValidateForm,
+    updateForm
 }

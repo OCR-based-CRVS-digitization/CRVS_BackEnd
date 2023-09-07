@@ -22,5 +22,7 @@ router.post('/getValidateList', reqAthenticate, toValidateList);
 const { toValidateForm } = require('../Controller/validateController');
 router.post('/getValidateForm', reqAthenticate, toValidateForm);
 
+const { updateForm } = require('../Controller/validateController');
+router.post('/updateForm', reqAthenticate, updateForm);
 
 module.exports = router;

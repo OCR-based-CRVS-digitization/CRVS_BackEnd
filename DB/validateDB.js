@@ -78,7 +78,31 @@ async function getToValidateForm(id) {
     }
 }
 
+async function updateFormDB(id,validateForm) {
+    // let id = parseBigInt(formid);
+    try{
+        const validate = await prisma.form_ocr_output.update({
+            where: {
+                id: id
+            },
+            data: {
+                ocr_result : validateForm
+            }
+        });
+        //console.log(validate);
+        if(validate){
+            return true;
+        }
+        return false;
+    }
+    catch(err){
+        console.log(`Error updating validate for ID: ${id} ${err}`);
+        return false;
+    }
+}
+
 module.exports = {
     getToValidateList,
-    getToValidateForm
+    getToValidateForm,
+    updateFormDB
 }
