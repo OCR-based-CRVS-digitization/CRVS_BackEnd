@@ -59,9 +59,34 @@ async function getDraftFormDB(id){
 }
 
 
+async function updateDraftPageOneDB(id,form){
+    try{
+        const draft = await prisma.form_draft.update({
+            where: {
+                id: id
+            },
+            data: {
+                draft: form
+            }
+        });
+        if(draft){
+            return true;
+        }
+        return false;
+    }
+    catch(err){
+        console.log(`Error updating draft: ${err}`);
+        return false;
+    }
+    finally{
+        await prisma.$disconnect();
+    }
+}
+
 
 
 module.exports = {
     getDraftListDB,
-    getDraftFormDB
+    getDraftFormDB,
+    updateDraftPageOneDB
 }

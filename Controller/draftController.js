@@ -37,8 +37,28 @@ async function getDraftForm(req,res) {
     }
 }
 
+async function updateDraftPageOne(req,res) {
+    const formid = req.body.form_id;
+    const form_info = req.body.form_info;
+    // console.log(formid);
+    try{
+        const { updateDraftPageOneDB } = require('../DB/draftDB');
+        const form = await updateDraftPageOneDB(formid,form_info);
+        if(form){
+            res.status(200).json("Form Updated Successfully!");
+        }else{
+            res.status(401).json({ error: 'Error Updating Form in Database -- from controller!' });
+        }
+    }
+    catch(err){
+        console.log(`Updating Draft Form Failed: ${err}`);
+        res.status(500).json({ error: 'Internal error, please try again.' });
+    }
+}
+
 
 module.exports = {
     getDraftList,
-    getDraftForm
+    getDraftForm,
+    updateDraftPageOne
 }

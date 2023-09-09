@@ -31,6 +31,8 @@ router.post('/getDraftList', reqAthenticate, getDraftList);
 const { getDraftForm } = require('../Controller/draftController');
 router.post('/getDraftForm', reqAthenticate, getDraftForm);
 
+const { updateDraftPageOne } = require('../Controller/draftController');
+router.post('/updateDraftPageOne', reqAthenticate, updateDraftPageOne);
 
 const { updateForm } = require('../Controller/validatedController');
 router.post('/updateForm', reqAthenticate, updateForm);
