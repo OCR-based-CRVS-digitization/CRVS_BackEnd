@@ -64,6 +64,11 @@ async function getWorkspaceDB(workspace_id) {
                 workspace_id: workspace_id
             }
         });
+        const waiting = await prisma.form_ocr_output.findMany({
+            where: {
+                workspace_id: workspace_id
+            }
+        })
         const validated = await prisma.form_validated.findMany({
             where: {
                 workspace_id: workspace_id
@@ -78,7 +83,8 @@ async function getWorkspaceDB(workspace_id) {
             workspace: workspace,
             uploaded: uploaded.length,
             validated: validated.length,
-            draft: draft.length
+            draft: draft.length,
+            waiting: waiting.length
         };
     } catch (err) {
         console.log(`Error getting workspace: ${err}`);
