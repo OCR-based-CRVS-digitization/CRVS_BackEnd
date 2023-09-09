@@ -43,8 +43,30 @@ async function authenticateAdmin(eiin, password) {
     }
 }
 
+async function getEIIN(username) {
+    try {
+
+        const user = await prisma.users.findUnique({
+            where: { username },
+        });
+
+        if (!user) {
+            return false;
+        }
+
+        return user.eiin.toString();
+    } catch (err) {
+        console.log(`Error getting EIIN: ${err}`);
+        return false;
+    }
+    finally{
+        await prisma.$disconnect();
+    }
+}
+
 
 module.exports = {
     authenticateUser,
-    authenticateAdmin
+    authenticateAdmin,
+    getEIIN
 }
