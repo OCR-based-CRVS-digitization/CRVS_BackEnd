@@ -53,7 +53,10 @@ async function getAllWorkspace(req,res) {
                 total: workspace.total,
                 year: workspace.year,
                 main: workspace.default,
-                description: workspace.description
+                description: workspace.description,
+                uploaded: workspace.uploaded,
+                validated: workspace.validated,
+                draft: workspace.draft
             }));
 
             res.status(200).json({ workspaces: workspaceList });

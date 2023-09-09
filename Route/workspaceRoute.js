@@ -16,13 +16,23 @@ const { getAllWorkspace } = require('../Controller/workspaceController');
 router.get('/getAllWorkspace', reqAthenticate, getAllWorkspace);
 
 
-const { toValidateList } = require('../Controller/validateController');
+const { toValidateList } = require('../Controller/toValidateController');
 router.post('/getValidateList', reqAthenticate, toValidateList);
 
-const { toValidateForm } = require('../Controller/validateController');
+const { toValidateForm } = require('../Controller/toValidateController');
 router.post('/getValidateForm', reqAthenticate, toValidateForm);
 
-const { updateForm } = require('../Controller/validateController');
+const { updateFormPageOne } = require('../Controller/toValidateController');
+router.post('/updateFormPageOne', reqAthenticate, updateFormPageOne);
+
+const { getDraftList } = require('../Controller/draftController');
+router.post('/getDraftList', reqAthenticate, getDraftList);
+
+const { getDraftForm } = require('../Controller/draftController');
+router.post('/getDraftForm', reqAthenticate, getDraftForm);
+
+
+const { updateForm } = require('../Controller/validatedController');
 router.post('/updateForm', reqAthenticate, updateForm);
 
 module.exports = router;

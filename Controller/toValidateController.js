@@ -9,7 +9,7 @@ async function toValidateList(req,res) {
     //     res.status(401).json({ error: 'Give valid workspace ID!' });
     // }
     try{
-        const { getToValidateList } = require('../DB/validateDB');
+        const { getToValidateList } = require('../DB/toValidateDB');
         const validateList = await getToValidateList(workspaceid);
         if(validateList){
             res.status(200).json({validateList});
@@ -27,7 +27,7 @@ async function toValidateForm(req,res) {
     formid = req.body.form_id;
     console.log(formid);
     try{
-        const { getToValidateForm } = require('../DB/validateDB');
+        const { getToValidateForm } = require('../DB/toValidateDB');
         const validateForm = await getToValidateForm(formid);
         if(validateForm){
             res.status(200).json({validateForm});
@@ -41,15 +41,17 @@ async function toValidateForm(req,res) {
     }
 }
 
-async function updateForm(req,res) {
-    formid = req.body.form_id;
+async function updateFormPageOne(req,res) {
+    const formid = req.body.form_id;
     // console.log(formid);
     const validateForm = req.body.ocr_result;
+    const eiin = req.body.eiin;
+    const workspace_id = req.body.workspace_id;
     // console.log(validateForm);
     console.log(req.body)
     try{
-        const { updateFormDB } = require('../DB/validateDB');
-        const form = await updateFormDB(formid,validateForm);
+        const { updateFormPageOneDB } = require('../DB/toValidateDB');
+        const form = await updateFormPageOneDB(formid,validateForm,eiin,workspace_id);
         if(form){
             res.status(200).json("Form Updated Successfully!");
         }else{
@@ -66,5 +68,5 @@ async function updateForm(req,res) {
 module.exports = {
     toValidateList,
     toValidateForm,
-    updateForm
+    updateFormPageOne
 }

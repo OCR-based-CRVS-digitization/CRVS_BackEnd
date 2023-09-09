@@ -36,26 +36,114 @@ model workspace {
 }
 
 model pdf {
-  form_id      String @id @default(dbgenerated("gen_random_uuid()"))
+  form_id      String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   workspace_id String
   url          String
 }
 
-model division {
-  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name      String
-  districts district[]
-}
-
-model district {
-  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name        String
-  division_id String   @db.Uuid
-  division    division @relation(fields: [division_id], references: [id])
-}
-
 model form_ocr_output {
-  id         BigInt @id @default(autoincrement())
-  ocr_result Json
-  form_id    String @unique
+  id           BigInt   @id @default(autoincrement())
+  form_id      String   @unique
+  workspace_id String
+  eiin         String
+  ocr_result   Json
+  created_at   DateTime @default(now())
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model prisma_migrations {
+  c1 String?
+  c2 String?
+  c3 String?
+  c4 String?
+  c5 String?
+  c6 String?
+  c7 String?
+  c8 BigInt?
+
+  @@map("_prisma_migrations")
+  @@ignore
+}
+
+model correction_citycorporation {
+  id                  String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                String
+  max_wardnumber      Int
+  district_id         String              @db.Uuid
+  correction_district correction_district @relation(fields: [district_id], references: [id])
+}
+
+model correction_district {
+  id                         String                       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                       String
+  division_id                String                       @db.Uuid
+  correction_citycorporation correction_citycorporation[]
+  correction_division        correction_division          @relation(fields: [division_id], references: [id])
+  correction_paurashava      correction_paurashava[]
+  correction_postoffice      correction_postoffice[]
+  correction_thana           correction_thana[]
+  correction_upazilla        correction_upazilla[]
+}
+
+model correction_division {
+  id                  String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                String
+  correction_district correction_district[]
+}
+
+model correction_paurashava {
+  id                  String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                String
+  max_wardnumber      Int
+  district_id         String              @db.Uuid
+  correction_district correction_district @relation(fields: [district_id], references: [id])
+}
+
+model correction_postoffice {
+  id                  String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                String
+  post_code           Int
+  district_id         String              @db.Uuid
+  correction_district correction_district @relation(fields: [district_id], references: [id])
+}
+
+model correction_thana {
+  id                  String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                String
+  district_id         String              @db.Uuid
+  correction_district correction_district @relation(fields: [district_id], references: [id])
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model correction_union {
+  c1 String?
+  c2 String?
+  c3 String?
+
+  @@ignore
+}
+
+model correction_upazilla {
+  id                  String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                String
+  district_id         String              @db.Uuid
+  correction_district correction_district @relation(fields: [district_id], references: [id])
+}
+
+model form_draft {
+  id           BigInt   @id @default(autoincrement())
+  form_id      String   @unique
+  workspace_id String
+  eiin         String
+  draft        Json
+  created_at   DateTime @default(now())
+}
+
+model form_validated {
+  id           BigInt   @id @default(autoincrement())
+  form_id      String   @unique
+  workspace_id String
+  eiin         String
+  validated    Json
+  created_at   DateTime @default(now())
 }

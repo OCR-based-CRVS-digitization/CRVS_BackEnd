@@ -65,7 +65,8 @@ async function getToValidateForm(id) {
             return {
                 url:form_url.url,
                 ocr_result:validate.ocr_result,
-            };
+                form_id:formid
+            }
         }
         // if(!form_url){
         //     console.log(`Error getting url for ID: ${formid} ${err}`);
@@ -78,10 +79,12 @@ async function getToValidateForm(id) {
     }
 }
 
-async function updateFormDB(id,validateForm) {
+async function updateFormPageOneDB(id,validateForm) {
     // let id = parseBigInt(formid);
+    let validate = null;
+    let cratedraft = null;
     try{
-        const validate = await prisma.form_ocr_output.update({
+        validate = await prisma.form_ocr_output.update({
             where: {
                 id: id
             },
@@ -89,20 +92,53 @@ async function updateFormDB(id,validateForm) {
                 ocr_result : validateForm
             }
         });
-        //console.log(validate);
-        if(validate){
-            return true;
-        }
-        return false;
     }
     catch(err){
         console.log(`Error updating validate for ID: ${id} ${err}`);
         return false;
     }
+    if(!validate){
+        return false;
+    }
+    try{
+        const draftid = await prisma.form_draft.findUnique({
+            where: {
+                form_id: validate.form_id
+            }
+        });
+        if(draftid){
+            cratedraft = await prisma.form_draft.update({
+                where: {
+                    id: draftid.id
+                },
+                data: {
+                    draft : validateForm
+                }
+            });
+        }
+        else{
+            cratedraft = await prisma.form_draft.create({
+                data: {
+                    form_id : validate.form_id,
+                    eiin : validate.eiin,
+                    workspace_id : valitade.workspace_id,
+                    draft : validateForm
+                }
+            });
+        }
+    }
+    catch(err){
+        console.log(`Error creating draft for ID: ${id} ${err}`);
+        return false;
+    }
+    if(cratedraft){
+        return true;
+    }
+    return false;
 }
 
 module.exports = {
     getToValidateList,
     getToValidateForm,
-    updateFormDB
+    updateFormPageOneDB
 }

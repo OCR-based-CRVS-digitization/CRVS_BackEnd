@@ -3,6 +3,8 @@ const { firebaseUpload } = require('../Firebase/firebaseUpload');
 
 async function fileUpload(req,res) {
     const workspace_id = req.body.workspace_id;
+
+
     const result = await firebaseUpload(req,res);
 
     if(result.code == 200){

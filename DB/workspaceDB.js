@@ -59,7 +59,27 @@ async function getWorkspaceDB(workspace_id) {
                 workspace_id: workspace_id
             }
         });
-        return workspace;
+        const uploaded = await prisma.pdf.findMany({
+            where: {
+                workspace_id: workspace_id
+            }
+        });
+        const validated = await prisma.form_validated.findMany({
+            where: {
+                workspace_id: workspace_id
+            }
+        });
+        const draft = await prisma.form_draft.findMany({
+            where: {
+                workspace_id: workspace_id
+            }
+        });
+        return {
+            workspace: workspace,
+            uploaded: uploaded.length,
+            validated: validated.length,
+            draft: draft.length
+        };
     } catch (err) {
         console.log(`Error getting workspace: ${err}`);
         return false;
