@@ -121,7 +121,7 @@ async function updateFormPageOneDB(id,validateForm) {
                 data: {
                     form_id : validate.form_id,
                     eiin : validate.eiin,
-                    workspace_id : valitade.workspace_id,
+                    workspace_id : validate.workspace_id,
                     draft : validateForm
                 }
             });
