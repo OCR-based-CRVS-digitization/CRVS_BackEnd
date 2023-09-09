@@ -52,6 +52,41 @@ async function updatedFormDB(formid,validatedForm){
     }
 }
 
+async function getValidatedListDB(workspace_id){
+    try{
+        const form = await prisma.form_validated.findMany({
+            where: {
+                workspace_id: workspace_id
+            }
+        });
+        if(form){
+            let validatedList = [];
+            for(let i=0;i<form.length;i++){
+                validatedList.push({
+                    STUDENT_NAME: form[i].validated.STUDENT_NAME.text,
+                    FATHER_NAME: form[i].validated.FATHER_NAME.text,
+                    MOTHERS_NAME: form[i].validated.MOTHERS_NAME.text,
+                    ROLL: form[i].validated.ROLL.text,
+                    GENDER: form[i].validated.GENDER.text[0],
+                    RELIGION: form[i].validated.RELIGION.text[0],
+                });
+            }
+            return validatedList;
+        }
+        else{
+            return false;
+        }
+    }
+    catch(err){
+        console.log(`Error getting validated form: ${err}`);
+        return false;
+    }
+    finally{
+        await prisma.$disconnect();
+    }
+}
+
 module.exports = {
-    updatedFormDB
+    updatedFormDB,
+    getValidatedListDB
 }
